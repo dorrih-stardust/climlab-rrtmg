@@ -62,9 +62,9 @@ incdir_f2py = run_command(py,
 inc_np = include_directories(incdir_numpy, incdir_f2py)
 
 swmodule = custom_target('_rrtmg_sw.c',
-   input : 'Driver.f90',  
+   input : ['rrtmg_sw_v4.0/gcm_model/modules/parrrsw.f90', 'Driver.f90'],  
    output : ['_rrtmg_swmodule.c', 
-            #  '_rrtmg_sw-f2pywrappers2.f90',
+             '_rrtmg_sw-f2pywrappers2.f90',
             #  '_rrtmg_sw-f2pywrappers.f',
             ],
    command : [py, '-m', 'numpy.f2py', '@INPUT@', 

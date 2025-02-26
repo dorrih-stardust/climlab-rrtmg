@@ -48,8 +48,6 @@ rrtmg_lw_sources = files(
 )
 #unoptimized_src = ['rrtmg_lw_k_g.f90']
 
-
-
 incdir_numpy = run_command(py,
   ['-c', 'import os; os.chdir(".."); import numpy; print(numpy.get_include())'],
   check : true
@@ -63,9 +61,9 @@ incdir_f2py = run_command(py,
 inc_np = include_directories(incdir_numpy, incdir_f2py)
 
 lwmodule = custom_target('_rrtmg_lw.c',
-   input : 'Driver.f90',  
+   input : ['rrtmg_lw_v4.85/gcm_model/modules/parrrtm.f90', 'Driver.f90'],  
    output : ['_rrtmg_lwmodule.c', 
-            #  '_rrtmg_lw-f2pywrappers2.f90',
+             '_rrtmg_lw-f2pywrappers2.f90',
             #  '_rrtmg_lw-f2pywrappers.f',
              ],
    command : [py, '-m', 'numpy.f2py', '@INPUT@', 
